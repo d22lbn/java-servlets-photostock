@@ -26,6 +26,15 @@ public class MainServlet extends HttpServlet{
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     ArrayList<String> paths = db.getSmth(tableName, "path");
+    if (paths.size() == 0) {
+      System.out.println("ФОТОГРАФИЙ В БАЗЕ ДАННЫХ НОРМАЛЬНЫХ НЕТ, " +
+              "ПОЭТОМУ ЗАПОЛНИМ ЕЕ ФИГНЕЙ");
+      int n = 5;
+      for (int i = 0; i < n; i++) {
+        photo.setRandomData();
+        db.addData(tableName, photo.getData());
+      }
+    }
 
     req.setAttribute("paths", paths);
 

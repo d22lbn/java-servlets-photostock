@@ -28,19 +28,19 @@ public class RegistrationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/WEB-INF/view/registration.jsp").forward(req, resp);
 
-        String tableName2 = "photos";
-        Photo photo = new Photo("Lolkek");
-        db.createTable(tableName2, photo.getParam());
+//        String tableName2 = "photos";
+//        Photo photo = new Photo();
+//        db.createTable(tableName2, photo.getParam());
 //        for (int i = 1; i < 8; i++) {
 //            photo.setName("item" + i + ".jpg");
 //            db.addData(tableName2, photo.getData());
 //        }
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
-        ArrayList<String> list = db.getSmth(tableName2, "path");
-        for (String i : list) {
-            System.out.println(i);
-        }
+//        System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
+//        ArrayList<String> list = db.getSmth(tableName2, "path");
+//        for (String i : list) {
+//            System.out.println(i);
+//        }
     }
 
     @Override

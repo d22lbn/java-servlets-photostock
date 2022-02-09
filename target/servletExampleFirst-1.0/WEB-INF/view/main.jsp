@@ -22,16 +22,16 @@
         </div>
     </main>
 
-<div id="popup" class="popup">
-    <div class="popup_body">
-        <a href="#header" class="popup_close">X</a>
-        <img src="img/item2.jpg" alt="">
-        <div class="popup_content">
-            <div class="popup_name">Ладонь</div>
-            <div class="popup_desc">Тень ладони на стене от заката. И еще мловиала лилуи луаимло уилмоиулоп иул илуа ила илуаи луи луки луаимоуаилимлимлуки амтшщкпзыукртп оиклыимлку ифмикл илкцТень ладони на стене от заката. И еще мловиала лилуи луаимло уилмоиулоп иул илуа ила илуаи луи луки луаимоуаилимлимлуки амтшщкпзыукртп оиклыимлку ифмикл илкции</div>
-            <a href="" class="popup_price">5000 руб.</a>
+    <div id="popup" class="popup">
+        <div class="popup_body">
+            <a href="#header" class="popup_close">X</a>
+            <img src="img/item2.jpg" alt="">
+            <div class="popup_content">
+                <div class="popup_name">Ладонь</div>
+                <div class="popup_desc">Тень ладони на стене от заката. И еще мловиала лилуи луаимло уилмоиулоп иул илуа ила илуаи луи луки луаимоуаилимлимлуки амтшщкпзыукртп оиклыимлку ифмикл илкцТень ладони на стене от заката. И еще мловиала лилуи луаимло уилмоиулоп иул илуа ила илуаи луи луки луаимоуаилимлимлуки амтшщкпзыукртп оиклыимлку ифмикл илкции</div>
+                <a href="" class="popup_price">5000 руб.</a>
+            </div>
         </div>
     </div>
-</div>
 
 <%@include file="/WEB-INF/view/blocks/footer.jsp"%>
