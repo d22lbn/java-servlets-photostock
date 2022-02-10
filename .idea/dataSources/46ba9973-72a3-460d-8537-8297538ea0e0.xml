@@ -789,9 +789,10 @@ false Zulu
     <database id="2" parent="1" name="photostock">
       <ObjectId>16641</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>2054</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2060</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16756|16758|1
+sequence|table|16769|16771|1
 </Relations>
     </database>
     <database id="3" parent="1" name="postgres">
@@ -867,7 +868,7 @@ UC/10
 </Acl>
       <StateNumber>287</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>2055</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2061</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="18" parent="2" name="plpgsql">
@@ -973,12 +974,23 @@ UC/10
       <StateNumber>2048</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
-    <table id="31" parent="17" name="photos">
+    <sequence id="31" parent="17" name="users_id_seq">
+      <ObjectId>16769</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>2059</StateNumber>
+      <DataType>integer|0s</DataType>
+    </sequence>
+    <table id="32" parent="17" name="photos">
       <ObjectId>16758</ObjectId>
       <Owner>postgres</Owner>
       <StateNumber>2048</StateNumber>
     </table>
-    <column id="32" parent="31" name="id">
+    <table id="33" parent="17" name="users">
+      <ObjectId>16771</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>2059</StateNumber>
+    </table>
+    <column id="34" parent="32" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -986,37 +998,37 @@ UC/10
       <DefaultExpression>nextval(&apos;photos_id_seq&apos;::regclass)</DefaultExpression>
       <TypeId>23</TypeId>
     </column>
-    <column id="33" parent="31" name="path">
+    <column id="35" parent="32" name="path">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <StateNumber>2048</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="34" parent="31" name="sitename">
+    <column id="36" parent="32" name="sitename">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <StateNumber>2048</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="35" parent="31" name="description">
+    <column id="37" parent="32" name="description">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <StateNumber>2048</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="36" parent="31" name="price">
+    <column id="38" parent="32" name="price">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>2048</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="37" parent="31" name="canbuy">
+    <column id="39" parent="32" name="canbuy">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>2048</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="38" parent="31" name="photos_pkey">
+    <index id="40" parent="32" name="photos_pkey">
       <ObjectId>16765</ObjectId>
       <StateNumber>2048</StateNumber>
       <ColNames>id</ColNames>
@@ -1026,7 +1038,7 @@ UC/10
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <index id="39" parent="31" name="photos_path_key">
+    <index id="41" parent="32" name="photos_path_key">
       <ObjectId>16767</ObjectId>
       <StateNumber>2048</StateNumber>
       <ColNames>path</ColNames>
@@ -1036,18 +1048,113 @@ UC/10
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="40" parent="31" name="photos_pkey">
+    <key id="42" parent="32" name="photos_pkey">
       <ObjectId>16766</ObjectId>
       <StateNumber>2048</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>photos_pkey</UnderlyingIndexName>
     </key>
-    <key id="41" parent="31" name="photos_path_key">
+    <key id="43" parent="32" name="photos_path_key">
       <ObjectId>16768</ObjectId>
       <StateNumber>2048</StateNumber>
       <ColNames>path</ColNames>
       <UnderlyingIndexName>photos_path_key</UnderlyingIndexName>
+    </key>
+    <column id="44" parent="33" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>2059</StateNumber>
+      <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="45" parent="33" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="46" parent="33" name="surname">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="47" parent="33" name="patronymic">
+      <Position>4</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="48" parent="33" name="gender">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="49" parent="33" name="datebirth">
+      <Position>6</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="50" parent="33" name="email">
+      <Position>7</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="51" parent="33" name="password">
+      <Position>8</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="52" parent="33" name="balance">
+      <Position>9</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="53" parent="33" name="ava">
+      <Position>10</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>2059</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="54" parent="33" name="users_pkey">
+      <ObjectId>16778</ObjectId>
+      <StateNumber>2059</StateNumber>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+    </index>
+    <index id="55" parent="33" name="users_email_key">
+      <ObjectId>16780</ObjectId>
+      <StateNumber>2059</StateNumber>
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>100</CollationIds>
+      <CollationNames>default</CollationNames>
+      <ClassIds>3126</ClassIds>
+    </index>
+    <key id="56" parent="33" name="users_pkey">
+      <ObjectId>16779</ObjectId>
+      <StateNumber>2059</StateNumber>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
+    </key>
+    <key id="57" parent="33" name="users_email_key">
+      <ObjectId>16781</ObjectId>
+      <StateNumber>2059</StateNumber>
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>users_email_key</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

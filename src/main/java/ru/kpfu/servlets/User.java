@@ -27,6 +27,20 @@ public class User {
         this.ava = ava;
     }
 
+    public User(ArrayList<String> data) {
+        int i = 0;
+        this.id = Integer.parseInt(data.get(i++));
+        this.name = data.get(i++);
+        this.surname = data.get(i++);
+        this.patronymic = data.get(i++);
+        this.gender = Integer.parseInt(data.get(i++));
+        this.dateBirth = Integer.parseInt(data.get(i++));
+        this.email = data.get(i++);
+        this.password = data.get(i++);
+        this.balance = Integer.parseInt(data.get(i++));
+        this.ava = data.get(i++);
+    }
+
     public User() {
         this.name = "";
         this.surname = "";

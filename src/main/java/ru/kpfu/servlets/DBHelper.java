@@ -196,6 +196,33 @@ public class DBHelper {
         return data;
     }
 
+    public ArrayList<String> getUserDataByEmail(String tableName, String email) {
+        String sql = "SELECT * FROM " + tableName + " WHERE email = '" + email + "'";
+        ArrayList<String> data = new ArrayList<>();
+        ArrayList<ArrayList<String>> userParam = (new User()).getParam();
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery(sql);
+            while (rs.next()){
+                for (int i = 0; i < userParam.size(); i++) {
+                    data.add(rs.getString(userParam.get(i).get(0)));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public boolean updateDataById(String tableName, String field, String fieldValue, String id) {
+        String sql = "UPDATE " + tableName + " SET " + field + " = '" + fieldValue + "' WHERE id = " + id;
+        if (getConnect()) {
+            exec(sql);
+            return true;
+        }
+        return false;
+    }
+
 //    public String getPasswordByEmail(String em, String tableName) {
 //        String email = em;
 //        String sql = "SELECT password FROM " + tableName + " WHERE email = '" + email + "'";
