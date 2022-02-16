@@ -13,7 +13,6 @@ public class ApplicationContextListener implements ServletContextListener {
         db.createTable(ApplicationParameters.PHOTOS, Photo.getParameters());
         db.createTable(ApplicationParameters.UPLOADED, User.getParametersUsersAndPhotos());
         db.createTable(ApplicationParameters.PURCHASED, User.getParametersUsersAndPhotos());
-
     }
 
     @Override
