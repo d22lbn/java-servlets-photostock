@@ -10,25 +10,6 @@
                     <img src="resources/ava.jpg" alt="">
                 </div>
                 <form class="inf_text" method="post" action="">
-<%--                    <form method="post" action="">--%>
-<%--                        <div class="reg_item">--%>
-<%--                            <input type="email" required name="email" placeholder="почта">--%>
-<%--                        </div>--%>
-<%--                        <div class="reg_item">--%>
-<%--                            <input type="text" required name="name" placeholder="имя">--%>
-<%--                        </div>--%>
-<%--                        <div class="reg_item">--%>
-<%--                            <input type="text" required name="surname" placeholder="фамилия">--%>
-<%--                        </div>--%>
-<%--                        <div class="reg_item">--%>
-<%--                            <input type="password" required name="password" placeholder="пароль">--%>
-<%--                        </div>--%>
-<%--                        <div class="reg_item reg_btn">--%>
-<%--                            <input type="submit" name="enter" value="готово">--%>
-<%--                        </div>--%>
-<%--                    </form>--%>
-
-<%--                    <form method="post" action="">--%>
                         <div class="inf_text_item">
                             <div>Фамилия:</div>
                             <input type="text" name="surname" placeholder="${surname}">
@@ -49,13 +30,9 @@
                             <div>Баланс:</div>
                             <div class="balance">${balance} руб.</div>
                         </div>
-                        <div class="inf_text_item">
-                            <button type="submit">Изменить</button>
-
+                        <div class="change">
                             <input type="submit" name="enter" value="Изменить">
                         </div>
-<%--                    </form>--%>
-
                 </form>
             </div>
             <div class="uploaded">

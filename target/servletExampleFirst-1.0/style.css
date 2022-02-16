@@ -327,6 +327,13 @@ h1, h2, h3, h4, h5, h6 {
     /*border: 1px solid red;*/
 }
 
+.change {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    height: 5vh;
+}
+
 .inf_text_item:first-child {
     margin: 0;
 }
@@ -345,7 +352,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #FFFFFF;
 }
 
-.inf_text_item button {
+.change input {
     border-radius: 10px;
     border: 1px solid gray;
     font-size: 1em;
@@ -355,7 +362,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5px;
 }
 
-.inf_text_item button:hover {
+.change input:hover {
     background-color: #CECECE;
 }
 
