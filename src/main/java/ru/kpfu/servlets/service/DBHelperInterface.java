@@ -19,6 +19,9 @@ public interface DBHelperInterface {
     User getUserById(String tableName, int id);
     User getUserByEmail(String tableName, String email);
 
+    Photo getPhotoById(String tableName, int id);
+    public ArrayList<String> getPhotoIdByName(String tableName, String name);
+
     boolean updateUserFieldById(String tableName, int id, ArrayList<String> fieldAndValue);
     List<String> getColumnEntries(String tableName, String column);
 

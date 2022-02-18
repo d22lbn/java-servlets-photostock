@@ -19,12 +19,12 @@
                             <input type="text" name="name" placeholder="${name}">
                         </div>
                         <div class="inf_text_item">
-                            <div>Отчество:</div>
-                            <input type="text" name="patronymic" placeholder="${patronymic}">
-                        </div>
-                        <div class="inf_text_item">
                             <div>Почта:</div>
                             <input type="email" name="email" placeholder="${email}">
+                        </div>
+                        <div class="inf_text_item">
+                            <div>Пароль:</div>
+                            <input type="password" name="password" placeholder="пароль">
                         </div>
                         <div class="inf_text_item">
                             <div>Баланс:</div>

@@ -7,4 +7,7 @@ public class ApplicationParameters {
     public static final String PURCHASED = "purchased";
     public static final String DB = "db";
     public static final String SESSION_USER = "user";
+    public static final String USER_EMAIL = "userEmail";
+    public static final String USER_COOKIE_PASSWORD = "userCookiePassword";
+
 }

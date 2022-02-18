@@ -182,7 +182,47 @@ public class DBHelper implements DBHelperInterface {
         return (new User(data));
     }
 
+    @Override
+    public Photo getPhotoById(String tableName, int id) {
+        if (!isExist(tableName, "id", Integer.toString(id))) {
+            return null;
+        }
 
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE id = '" + id + "'");
+        ArrayList<String> data = new ArrayList<>();
+        ArrayList<ArrayList<String>> photoParameters = Photo.getParameters();
+        try {
+            ResultSet rs = statement.executeQuery(sql.toString());
+            while (rs.next()){
+                for (ArrayList<String> photoParameter : photoParameters) {
+                    data.add(rs.getString(photoParameter.get(0)));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return (new Photo(data));
+    }
+
+    @Override
+    public ArrayList<String> getPhotoIdByName(String tableName, String name) {
+        if (!isExist(tableName, "name", name)) {
+            return null;
+        }
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE name = '" + name + "'");
+        ArrayList<String> data = new ArrayList<>();
+        try {
+            ResultSet rs = statement.executeQuery(sql.toString());
+            while (rs.next()){
+                data.add(rs.getString("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 
     @Override
     public boolean updateUserFieldById(String tableName, int id, ArrayList<String> fieldAndValue) {

@@ -5,41 +5,21 @@
 
     <main class="main">
         <div class="search">
-            <form>
-                <input type="text" placeholder="Искать фото...">
+            <form method="post" action="/photo/search">
+                <input type="text" name="search" placeholder="Искать фото...">
                 <button type="submit">🔎</button>
             </form>
         </div>
 
         <div class="main_slider">
             <div class="main_slide">
-                <div class="main_item">
-                    <img src="img/item2.jpg" alt="">
-                    <div class="main_item_text">Ладонь</div>
-                </div>
-                <div class="main_item">
-                    <img src="img/item3.jpg" alt="">
-                    <div class="main_item_text">Цветы</div>
-                </div>
-                <div class="main_item">
-                    <img src="img/item4.jpg" alt="">
-                    <div class="main_item_text">Природы</div>
-                </div>
-                <div class="main_item">
-                    <img src="img/item2.jpg" alt="">
-                    <div class="main_item_text">Ладонь</div>
-                </div>
-                <div class="main_item">
-                    <img src="img/item3.jpg" alt="">
-                    <div class="main_item_text">Цветы</div>
-                </div>
-                <div class="main_item">
-                    <img src="img/item4.jpg" alt="">
-                    <div class="main_item_text">Природы</div>
-                </div>
+                <c:forEach var="path" items="${paths}">
+                    <a href="#popup" class="main_item popup_link">
+                        <img src="${path}" alt="">
+                    </a>
+                </c:forEach>
             </div>
         </div>
-
     </main>
 
 <%@include file="/WEB-INF/view/blocks/footer.jsp"%>
