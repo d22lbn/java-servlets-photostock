@@ -28,9 +28,6 @@ public class AuthorizationServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        System.out.println(email + " " + password);
-
-
         User user = db.getUserByEmail(ApplicationParameters.USERS, email);
 
         System.out.println("User: " + user);
@@ -41,7 +38,9 @@ public class AuthorizationServlet extends HttpServlet {
 
         if (user.getPassword().equals(password)) {
             Cookie userEmail = new Cookie("userEmail", user.getEmail());
-            Cookie userCookiePassword = new Cookie("userCookiePassword", user.getCookie());
+            String cook = getRandStr(user.getCookie());
+            Cookie userCookiePassword = new Cookie("userCookiePassword", cook);
+            db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("cookie", cook));
             resp.addCookie(userEmail);
             resp.addCookie(userCookiePassword);
 
@@ -52,5 +51,18 @@ public class AuthorizationServlet extends HttpServlet {
 
         System.out.println("Ошибка в логине или пароле");
         doGet(req, resp);
+    }
+
+    private String getRandStr(String cook) {
+        if (cook != null && cook.length() > 0) {
+            return cook;
+        }
+        int n = 10;
+        String alp = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            s.append(alp.charAt((int) (Math.random() * alp.length())));
+        }
+        return s.toString();
     }
 }

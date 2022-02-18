@@ -22,22 +22,24 @@
         </div>
     </main>
 
-
     <c:forEach var="path" items="${paths}" varStatus="status">
         <div id="${status.getIndex()}" class="popup">
             <div class="popup_body">
                 <a href="#header" class="popup_close">X</a>
                 <img src="${path}" alt="">
                 <div class="popup_content">
-                    <div class="popup_name">?</div>
-                    <div class="popup_desc">?</div>
-                    <a href="" class="popup_price">?</a>
+                    <div class="popup_name">${names.get(status.getIndex())}</div>
+                    <div class="popup_desc">${descriptions.get(status.getIndex())}</div>
+                    <div>
+                        <form method="post" action="/photo/main">
+                            <input type="submit" value="${prices.get(status.getIndex())} руб." name="price">
+                            <input style="display: none; width: 0; height: 0;" type="submit" value="${path}" name="imgPath">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </c:forEach>
-
-
 
 
 <%@include file="/WEB-INF/view/blocks/footer.jsp"%>

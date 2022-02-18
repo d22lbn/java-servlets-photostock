@@ -243,6 +243,24 @@ public class DBHelper implements DBHelperInterface {
     }
 
     @Override
+    public String getPhotoIdByPath(String tableName, String path) {
+        if (!isExist(tableName, "path", path)) {
+            return null;
+        }
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE path = '" + path + "'");
+        String id = "";
+        try {
+            ResultSet rs = statement.executeQuery(sql.toString());
+            while (rs.next()){
+                id = rs.getString("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    @Override
     public boolean updateUserFieldById(String tableName, int id, ArrayList<String> fieldAndValue) {
         if (fieldAndValue.size() == 0) {
             return false;

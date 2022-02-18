@@ -22,6 +22,7 @@ public interface DBHelperInterface {
     Photo getPhotoById(String tableName, int id);
     public ArrayList<String> getPhotoIdByName(String tableName, String name);
     public ArrayList<String> getPhotoIdByUserId(String tableName, int userId);
+    public String getPhotoIdByPath(String tableName, String path);
 
     boolean updateUserFieldById(String tableName, int id, ArrayList<String> fieldAndValue);
     List<String> getColumnEntries(String tableName, String column);
