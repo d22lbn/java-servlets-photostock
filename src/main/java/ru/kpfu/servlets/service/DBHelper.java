@@ -243,6 +243,24 @@ public class DBHelper implements DBHelperInterface {
     }
 
     @Override
+    public ArrayList<String> getUserIdByPhotoId(String tableName, int photoId) {
+        if (!isExist(tableName, "photoId", String.valueOf(photoId))) {
+            return null;
+        }
+        StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE photoId = '" + photoId + "'");
+        ArrayList<String> data = new ArrayList<>();
+        try {
+            ResultSet rs = statement.executeQuery(sql.toString());
+            while (rs.next()){
+                data.add(rs.getString("userId"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    @Override
     public String getPhotoIdByPath(String tableName, String path) {
         if (!isExist(tableName, "path", path)) {
             return null;

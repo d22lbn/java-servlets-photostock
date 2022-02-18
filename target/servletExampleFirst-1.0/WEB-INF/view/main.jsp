@@ -32,6 +32,7 @@
                     <div class="popup_desc">${descriptions.get(status.getIndex())}</div>
                     <div>
                         <form method="post" action="/photo/main">
+                            <input style="display: none; width: 0; height: 0;" type="text" value="${path}" name="imgPath">
                             <input type="submit" value="${prices.get(status.getIndex())} руб." name="price">
                         </form>
                     </div>

@@ -17,7 +17,7 @@ public class AccountServlet extends HttpServlet {
         Cookie[] cookies = req.getCookies();
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(ApplicationParameters.SESSION_USER);
-        user = AuthorizationVerification.rememberUser(user, cookies, db);
+        user = AuthorizationVerification.rememberUser(null, cookies, db);
         if (user != null) {
             String s = user.getName() + " " + user.getSurname().charAt(0) + ".";
             req.setAttribute("userName", s);
