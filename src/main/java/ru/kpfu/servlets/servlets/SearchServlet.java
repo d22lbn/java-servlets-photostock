@@ -30,6 +30,7 @@ public class SearchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF8");
         String search = req.getParameter("search");
         DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
 

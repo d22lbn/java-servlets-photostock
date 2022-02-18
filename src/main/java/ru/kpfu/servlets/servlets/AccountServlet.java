@@ -1,9 +1,6 @@
 package ru.kpfu.servlets.servlets;
 
-import ru.kpfu.servlets.service.ApplicationParameters;
-import ru.kpfu.servlets.service.DBHelper;
-import ru.kpfu.servlets.service.DBHelperInterface;
-import ru.kpfu.servlets.service.User;
+import ru.kpfu.servlets.service.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +16,17 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(ApplicationParameters.SESSION_USER);
+        if (user != null) {
+            String s = user.getName() + " " + user.getSurname().charAt(0) + ".";
+            req.setAttribute("userName", s);
+        } else {
+            String path = "http://localhost:8080" + req.getContextPath();
+            resp.sendRedirect(path + "/authorization");
+            return;
+        }
 
         String surname = user.getSurname();
         String name = user.getName();
@@ -31,6 +37,26 @@ public class AccountServlet extends HttpServlet {
         req.setAttribute("name", name);
         req.setAttribute("email", email);
         req.setAttribute("balance", balance);
+
+        ArrayList<String> uploaded = new ArrayList<>();
+        ArrayList<String> ids = db.getPhotoIdByUserId(ApplicationParameters.UPLOADED, user.getId());
+        if (ids != null && ids.size() > 0) {
+            for (String id : ids) {
+                Photo photo = db.getPhotoById(ApplicationParameters.PHOTOS, Integer.parseInt(id));
+                uploaded.add(photo.getPath());
+            }
+            req.setAttribute("uploaded", uploaded);
+        }
+
+        ArrayList<String> purchased = new ArrayList<>();
+        ids = db.getPhotoIdByUserId(ApplicationParameters.PURCHASED, user.getId());
+        if (ids != null && ids.size() > 0) {
+            for (String id : ids) {
+                Photo photo = db.getPhotoById(ApplicationParameters.PHOTOS, Integer.parseInt(id));
+                purchased.add(photo.getPath());
+            }
+            req.setAttribute("purchased", purchased);
+        }
 
         req.getRequestDispatcher("/WEB-INF/view/account.jsp").forward(req, resp);
     }
@@ -47,7 +73,6 @@ public class AccountServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         User user = (User) session.getAttribute(ApplicationParameters.SESSION_USER);
-
 
         if (val(surname)) {
             user.setSurname(surname);

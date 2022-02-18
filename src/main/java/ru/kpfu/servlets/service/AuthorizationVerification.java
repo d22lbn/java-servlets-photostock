@@ -10,6 +10,7 @@ public class AuthorizationVerification {
         String userEmail = "";
         String userCookiePassword = "";
         if (cookies == null) {
+            System.out.println("Нет куков");
             return null;
         }
         for (Cookie cookie : cookies) {
@@ -22,6 +23,7 @@ public class AuthorizationVerification {
         }
 
         if (userEmail.length() * userCookiePassword.length() == 0) {
+            System.out.println("Куки неправильные");
             return null;
         }
 

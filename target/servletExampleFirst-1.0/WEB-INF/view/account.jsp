@@ -41,14 +41,11 @@
                     <button type="submit">Загрузить</button>
                 </div>
                 <div class="main_slide">
-                    <div class="main_item">
-                        <img src="img/item2.jpg" alt="">
-                        <div class="main_item_text">Ладонь</div>
-                    </div>
-                    <div class="main_item">
-                        <img src="img/item3.jpg" alt="">
-                        <div class="main_item_text">Цветы</div>
-                    </div>
+                    <c:forEach var="path" items="${uploaded}">
+                        <a href="#popup" class="main_item popup_link">
+                            <img src="${path}" alt="">
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
             <div class="purchased">
@@ -56,30 +53,11 @@
                     <h3>Купленные:</h3>
                 </div>
                 <div class="main_slide">
-                    <div class="main_item">
-                        <img src="img/item2.jpg" alt="">
-                        <div class="main_item_text">Ладонь</div>
-                    </div>
-                    <div class="main_item">
-                        <img src="img/item3.jpg" alt="">
-                        <div class="main_item_text">Цветы</div>
-                    </div>
-                    <div class="main_item">
-                        <img src="img/item4.jpg" alt="">
-                        <div class="main_item_text">Природы</div>
-                    </div>
-                    <div class="main_item">
-                        <img src="img/item5.jpg" alt="">
-                        <div class="main_item_text">Камера</div>
-                    </div>
-                    <div class="main_item">
-                        <img src="img/item6.jpg" alt="">
-                        <div class="main_item_text">Женщина</div>
-                    </div>
-                    <div class="main_item">
-                        <img src="img/item7.jpg" alt="">
-                        <div class="main_item_text">Шишка</div>
-                    </div>
+                    <c:forEach var="path" items="${purchased}">
+                        <a href="#popup" class="main_item popup_link">
+                            <img src="${path}" alt="">
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
         </div>
