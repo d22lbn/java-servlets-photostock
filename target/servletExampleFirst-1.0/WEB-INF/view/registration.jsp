@@ -6,7 +6,7 @@
 <main class="main">
     <div class="reg_window">
         <div class="reg_inner">
-            <form method="post" action="">
+            <form method="post" action="/photo/registration">
                 <div class="reg_item">
                     <input type="email" required name="email" placeholder="почта">
                 </div>

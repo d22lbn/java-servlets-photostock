@@ -20,54 +20,41 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF8");
-
-        HttpSession session = req.getSession();
+        String path = "http://localhost:8080" + req.getContextPath();
         DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
-
-        User user = (User) session.getAttribute(ApplicationParameters.SESSION_USER);
-        if (user == null) {
-            System.out.println("Пользователя нет в сессии. А может и самой сессии. Сейчас всё добавим");
-            user = new User();
-            System.out.println("Новый пользователь готов");
+        HttpSession session = req.getSession();
 
 
-            String email = req.getParameter("email");
-            String name = req.getParameter("name");
-            String surname = req.getParameter("surname");
-            String password = req.getParameter("password");
-            String userCookie = getRandStr(); // вынести фунцию генерации в отдельный класс и сделать ее нормальной
+        String email = req.getParameter("email");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        String password = req.getParameter("password");
+        String userCookie = getRandStr();
 
-            System.out.println("Из полей получили данные и сгенерировали ключ куки");
-
-            user.setEmail(email);
-            user.setName(name);
-            user.setSurname(surname);
-            user.setPassword(password);
-            user.setCookie(userCookie);
-            System.out.println("Заполнили нового юзера инфой");
-
-            if (db.addEntry(ApplicationParameters.USERS, user.getData())) {
-                System.out.println("Записали юзера в бд");
-            } else {
-                System.out.println("Хоть куков и сессии нет, но пользователь с такой почтой есть. " +
-                        "Поэтому просто добавлю старые куки и сессию сделаю");
-            }
-
-            user = db.getUserByEmail(ApplicationParameters.USERS, email);
-            System.out.println("Получили экземпляр юзера из бд для синхронизации");
-
-            Cookie userEmail = new Cookie("userEmail", user.getEmail());
-            Cookie userCookiePassword = new Cookie("userCookiePassword", user.getCookie());
-            resp.addCookie(userEmail);
-            resp.addCookie(userCookiePassword);
-            System.out.println("Добавили куки для пользователя");
-
-            session.setAttribute(ApplicationParameters.SESSION_USER, user);
-            System.out.println("Добавили пользователя в сессию");
-        } else {
-            System.out.println("Пользователь есть в сессии. Сейчас просто перенаправим");
+        User user1 = db.getUserByEmail(ApplicationParameters.USERS, email);
+        if (user1 != null) {
+            System.out.println("Пользователь с таким именем уже существует");
+            doGet(req, resp);
         }
-        doGet(req, resp);
+
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setPassword(password);
+        user.setCookie(userCookie);
+
+        db.addEntry(ApplicationParameters.USERS, user.getData());
+        user = db.getUserByEmail(ApplicationParameters.USERS, email);
+
+        Cookie userEmail = new Cookie("userEmail", user.getEmail());
+        Cookie userCookiePassword = new Cookie("userCookiePassword", user.getCookie());
+        resp.addCookie(userEmail);
+        resp.addCookie(userCookiePassword);
+
+        session.setAttribute(ApplicationParameters.SESSION_USER, user);
+        resp.sendRedirect(path + "/main");
+        return;
     }
 
     private String getRandStr() {

@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {
@@ -17,8 +14,10 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
+        Cookie[] cookies = req.getCookies();
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(ApplicationParameters.SESSION_USER);
+        user = AuthorizationVerification.rememberUser(user, cookies, db);
         if (user != null) {
             String s = user.getName() + " " + user.getSurname().charAt(0) + ".";
             req.setAttribute("userName", s);
@@ -27,6 +26,7 @@ public class AccountServlet extends HttpServlet {
             resp.sendRedirect(path + "/authorization");
             return;
         }
+        session.setAttribute(ApplicationParameters.SESSION_USER, user);
 
         String surname = user.getSurname();
         String name = user.getName();

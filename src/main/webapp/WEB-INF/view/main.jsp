@@ -13,8 +13,8 @@
 
         <div class="main_slider">
             <div class="main_slide">
-                <c:forEach var="path" items="${paths}">
-                    <a href="#popup" class="main_item popup_link">
+                <c:forEach var="path" items="${paths}" varStatus="status">
+                    <a id="${path}" href="#${status.getIndex()}" class="main_item popup_link">
                         <img src="${path}" alt="">
                     </a>
                 </c:forEach>
@@ -22,16 +22,22 @@
         </div>
     </main>
 
-    <div id="popup" class="popup">
-        <div class="popup_body">
-            <a href="#header" class="popup_close">X</a>
-            <img src="img/item2.jpg" alt="">
-            <div class="popup_content">
-                <div class="popup_name">Ладонь</div>
-                <div class="popup_desc">Тень ладони на стене от заката. И еще мловиала лилуи луаимло уилмоиулоп иул илуа ила илуаи луи луки луаимоуаилимлимлуки амтшщкпзыукртп оиклыимлку ифмикл илкцТень ладони на стене от заката. И еще мловиала лилуи луаимло уилмоиулоп иул илуа ила илуаи луи луки луаимоуаилимлимлуки амтшщкпзыукртп оиклыимлку ифмикл илкции</div>
-                <a href="" class="popup_price">5000 руб.</a>
+
+    <c:forEach var="path" items="${paths}" varStatus="status">
+        <div id="${status.getIndex()}" class="popup">
+            <div class="popup_body">
+                <a href="#header" class="popup_close">X</a>
+                <img src="${path}" alt="">
+                <div class="popup_content">
+                    <div class="popup_name">?</div>
+                    <div class="popup_desc">?</div>
+                    <a href="" class="popup_price">?</a>
+                </div>
             </div>
         </div>
-    </div>
+    </c:forEach>
+
+
+
 
 <%@include file="/WEB-INF/view/blocks/footer.jsp"%>

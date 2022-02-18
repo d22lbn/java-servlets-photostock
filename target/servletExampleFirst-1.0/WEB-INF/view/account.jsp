@@ -9,7 +9,7 @@
                 <div class="inf_img">
                     <img src="resources/ava.jpg" alt="">
                 </div>
-                <form class="inf_text" method="post" action="">
+                <form class="inf_text" method="post" action="/photo/account">
                         <div class="inf_text_item">
                             <div>Фамилия:</div>
                             <input type="text" name="surname" placeholder="${surname}">
