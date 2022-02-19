@@ -20,13 +20,13 @@ public interface DBHelperInterface {
     User getUserByEmail(String tableName, String email);
 
     Photo getPhotoById(String tableName, int id);
-    public ArrayList<String> getPhotoIdByName(String tableName, String name);
-    public ArrayList<String> getPhotoIdByUserId(String tableName, int userId);
-    public ArrayList<String> getUserIdByPhotoId(String tableName, int photoId);
-    public String getPhotoIdByPath(String tableName, String path);
+    ArrayList<String> getPhotoIdByName(String tableName, String name);
+    ArrayList<String> getPhotoIdByUserId(String tableName, int userId);
+    ArrayList<String> getUserIdByPhotoId(String tableName, int photoId);
+    String getPhotoIdByPath(String tableName, String path);
 
     boolean updateUserFieldById(String tableName, int id, ArrayList<String> fieldAndValue);
     List<String> getColumnEntries(String tableName, String column);
 
-//    int getTableSize(String tableName);
+    int getTableSize(String tableName);
 }

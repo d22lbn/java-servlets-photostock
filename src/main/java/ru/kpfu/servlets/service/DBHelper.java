@@ -303,4 +303,19 @@ public class DBHelper implements DBHelperInterface {
         }
         return data;
     }
+
+    @Override
+    public int getTableSize(String tableName) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM " + tableName);
+        int count = 0;
+        try {
+            ResultSet rs = statement.executeQuery(sql.toString());
+            while (rs.next()){
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

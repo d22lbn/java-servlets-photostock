@@ -17,6 +17,8 @@ public class ApplicationContextListener implements ServletContextListener {
         db.createTable(ApplicationParameters.PURCHASED, User.getParametersUsersAndPhotos());
 
         sce.getServletContext().setAttribute("db", db);
+
+        sce.getServletContext().setAttribute("photosCount", 0);
     }
 
     @Override

@@ -1,14 +1,24 @@
 package ru.kpfu.servlets.servlets;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import ru.kpfu.servlets.service.*;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 @WebServlet("/account")
+@MultipartConfig
 public class AccountServlet extends HttpServlet {
 
     @Override
@@ -41,10 +51,13 @@ public class AccountServlet extends HttpServlet {
         ArrayList<String> uploaded = new ArrayList<>();
         ArrayList<String> ids = db.getPhotoIdByUserId(ApplicationParameters.UPLOADED, user.getId());
         if (ids != null && ids.size() > 0) {
+            System.out.println("AAAAAAAAAAAAAAA");
             for (String id : ids) {
                 Photo photo = db.getPhotoById(ApplicationParameters.PHOTOS, Integer.parseInt(id));
+                System.out.println(photo.getPath());
                 uploaded.add(photo.getPath());
             }
+            System.out.println("AAAAAAAAAAAAAAA");
             req.setAttribute("uploaded", uploaded);
         }
 
@@ -66,33 +79,77 @@ public class AccountServlet extends HttpServlet {
         req.setCharacterEncoding("UTF8");
         HttpSession session = req.getSession();
         DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
-
-        String surname = req.getParameter("surname");
-        String name = req.getParameter("name");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
-
         User user = (User) session.getAttribute(ApplicationParameters.SESSION_USER);
 
-        if (val(surname)) {
-            user.setSurname(surname);
-        }
-        if (val(name)) {
-            user.setName(name);
-        }
-        if (val(email)) {
-            user.setEmail(email);
-        }
-        if (val(password)) {
-            user.setPassword(password);
+        System.out.println(req.getParameter("upl"));
+        System.out.println(req.getParameter("enter"));
+
+
+        if (req.getParameter("upl") != null) {
+            Part filePart = req.getPart("filename");
+            InputStream fileContent = filePart.getInputStream();
+
+            String path = "C:\\Users\\d22lb\\semwor3\\servletExampleFirst\\src\\main\\webapp\\photo\\";
+            File uploads = new File(path);
+
+
+            String photoPath = "item" + db.getTableSize(ApplicationParameters.PHOTOS) + ".jpg";
+            File file = new File(uploads, photoPath);
+            Files.copy(fileContent, file.toPath());
+
+
+            String photoName = req.getParameter("photoname");
+            String photoDescription = req.getParameter("photodescription");
+            String photoPrice = req.getParameter("photoprice");
+            String photoCanBuy = req.getParameter("photocanbuy");
+
+            System.out.println(photoName + " " + photoDescription + " " +
+                    photoPrice + " " + photoCanBuy);
+
+            Photo photo = new Photo("photo/" + photoPath, photoName, photoDescription,
+                    Integer.parseInt(photoPrice), Integer.parseInt(photoCanBuy), 0);
+            db.addEntry(ApplicationParameters.PHOTOS, photo.getData());
+            String photoId = db.getPhotoIdByPath(ApplicationParameters.PHOTOS, "photo/" + photoPath);
+            photo = db.getPhotoById(ApplicationParameters.PHOTOS, Integer.parseInt(photoId));
+
+
+            System.out.println("PHOTOID" + photoId);
+            System.out.println("USER: " + user);
+            System.out.println("PHOTO: " + photo);
+
+
+            ArrayList<ArrayList<String>> entryUpl = new ArrayList<>();
+            entryUpl.add(User.getCoup("userId", String.valueOf(user.getId())));
+            entryUpl.add(User.getCoup("photoId", String.valueOf(photo.getId())));
+            db.addEntry(ApplicationParameters.UPLOADED, entryUpl);
         }
 
-        db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("surname", user.getSurname()));
-        db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("name", user.getName()));
-        db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("email", user.getEmail()));
-        db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("password", user.getPassword()));
+        if (req.getParameter("enter") != null) {
+            String surname = req.getParameter("surname");
+            String name = req.getParameter("name");
+            String email = req.getParameter("email");
+            String password = req.getParameter("password");
 
-        session.setAttribute(ApplicationParameters.SESSION_USER, user);
+            if (val(surname)) {
+                user.setSurname(surname);
+            }
+            if (val(name)) {
+                user.setName(name);
+            }
+            if (val(email)) {
+                user.setEmail(email);
+            }
+            if (val(password)) {
+                user.setPassword(password);
+            }
+
+            db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("surname", user.getSurname()));
+            db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("name", user.getName()));
+            db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("email", user.getEmail()));
+            db.updateUserFieldById(ApplicationParameters.USERS, user.getId(), User.getCoup("password", user.getPassword()));
+
+            session.setAttribute(ApplicationParameters.SESSION_USER, user);
+        }
 
         doGet(req, resp);
     }

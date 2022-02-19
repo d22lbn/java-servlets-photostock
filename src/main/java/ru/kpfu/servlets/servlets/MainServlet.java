@@ -74,9 +74,17 @@ public class MainServlet extends HttpServlet{
     ArrayList<String> usersPhoto = db.getPhotoIdByUserId(ApplicationParameters.PURCHASED, user.getId());
     if (usersPhoto != null && usersPhoto.size() > 0) {
       for (String p : usersPhoto) {
-        System.out.println("ИМЕЮ: " + p + "    ХОЧУ КУПИТЬ: " + id);
         if (Integer.parseInt(p) == id) {
-          System.out.println("Фото уже куплено");
+          doGet(req, resp);
+          return;
+        }
+      }
+    }
+
+    ArrayList<String> usersPhoto2 = db.getPhotoIdByUserId(ApplicationParameters.UPLOADED, user.getId());
+    if (usersPhoto2 != null && usersPhoto2.size() > 0) {
+      for (String p : usersPhoto2) {
+        if (Integer.parseInt(p) == id) {
           doGet(req, resp);
           return;
         }
@@ -85,7 +93,6 @@ public class MainServlet extends HttpServlet{
 
     ArrayList<String> sellers = db.getUserIdByPhotoId(ApplicationParameters.UPLOADED, photo.getId());
     if (sellers == null || sellers.size() == 0) {
-      System.out.println("Продавца такого не существует");
       doGet(req, resp);
       return;
     }
@@ -106,9 +113,14 @@ public class MainServlet extends HttpServlet{
 
       ArrayList<ArrayList<String>> entryPurch = new ArrayList<>();
 
+
       entryPurch.add(User.getCoup("userId", String.valueOf(user.getId())));
       entryPurch.add(User.getCoup("photoId", String.valueOf(photo.getId())));
       db.addEntry(ApplicationParameters.PURCHASED, entryPurch);
+
+      photo.setPurchasedCount(photo.getPurchasedCount() + 1);
+      db.updateUserFieldById(ApplicationParameters.PHOTOS, photo.getId(),
+              User.getCoup("purchasedCount", String.valueOf(photo.getPurchasedCount())));
 
       User seller1 = db.getUserById(ApplicationParameters.USERS, Integer.parseInt(seller));
       seller1.setBalance(seller1.getBalance() + price);

@@ -38,7 +38,14 @@
             <div class="uploaded">
                 <div class="uploaded_text">
                     <h3>Загруженные:</h3>
-                    <button type="submit">Загрузить</button>
+                    <form action="/photo/account" method="post" enctype="multipart/form-data">
+                        <input type="file" required name="filename"/>
+                        <input type="text" required name="photoname" placeholder="название">
+                        <input type="text" required name="photodescription" placeholder="описание">
+                        <input type="text" required name="photoprice" placeholder="цена">
+                        <input type="text" required name="photocanbuy" placeholder="количество">
+                        <input type="submit" value="Добавить" name="upl">
+                    </form>
                 </div>
                 <div class="main_slide">
                     <c:forEach var="path" items="${uploaded}">

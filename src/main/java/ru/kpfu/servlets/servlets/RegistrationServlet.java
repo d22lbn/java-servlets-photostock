@@ -43,6 +43,7 @@ public class RegistrationServlet extends HttpServlet {
         user.setSurname(surname);
         user.setPassword(password);
         user.setCookie(userCookie);
+        user.setBalance(1000);
 
         db.addEntry(ApplicationParameters.USERS, user.getData());
         user = db.getUserByEmail(ApplicationParameters.USERS, email);
