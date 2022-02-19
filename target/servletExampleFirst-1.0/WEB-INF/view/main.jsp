@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="app_title" value="Главная"/>
-<%@include file="/WEB-INF/view/blocks/header.jsp"%>
+<%@include file="/WEB-INF/view/header.jsp"%>
 
     <main class="main">
         <div class="poster">
@@ -42,4 +42,4 @@
     </c:forEach>
 
 
-<%@include file="/WEB-INF/view/blocks/footer.jsp"%>
+<%@include file="/WEB-INF/view/footer.jsp"%>

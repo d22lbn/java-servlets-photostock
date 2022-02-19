@@ -1,13 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="app_title" value="Личный кабинет"/>
-<%@include file="/WEB-INF/view/blocks/header.jsp"%>
+<%@include file="/WEB-INF/view/header.jsp"%>
 
     <main class="main">
         <div class="lk">
             <div class="user_inf">
                 <div class="inf_img">
-                    <img src="resources/ava.jpg" alt="">
+                    <img src="resources/ava1.jpg" alt="">
                 </div>
                 <form class="inf_text" method="post" action="/photo/account">
                         <div class="inf_text_item">
@@ -37,7 +37,6 @@
             </div>
             <div class="uploaded">
                 <div class="uploaded_text">
-                    <h3>Загруженные:</h3>
                     <form action="/photo/account" method="post" enctype="multipart/form-data">
                         <input type="file" required name="filename"/>
                         <input type="text" required name="photoname" placeholder="название">
@@ -46,6 +45,7 @@
                         <input type="text" required name="photocanbuy" placeholder="количество">
                         <input type="submit" value="Добавить" name="upl">
                     </form>
+                    <h3>Загруженные:</h3>
                 </div>
                 <div class="main_slide">
                     <c:forEach var="path" items="${uploaded}">
@@ -70,4 +70,4 @@
         </div>
     </main>
 
-<%@include file="/WEB-INF/view/blocks/footer.jsp"%>
+<%@include file="/WEB-INF/view/footer.jsp"%>

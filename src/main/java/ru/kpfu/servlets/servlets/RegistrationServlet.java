@@ -1,9 +1,6 @@
 package ru.kpfu.servlets.servlets;
 
-import ru.kpfu.servlets.service.ApplicationParameters;
-import ru.kpfu.servlets.service.DBHelper;
-import ru.kpfu.servlets.service.DBHelperInterface;
-import ru.kpfu.servlets.service.User;
+import ru.kpfu.servlets.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,16 +23,23 @@ public class RegistrationServlet extends HttpServlet {
 
 
         String email = req.getParameter("email");
-        String name = req.getParameter("name");
-        String surname = req.getParameter("surname");
-        String password = req.getParameter("password");
-        String userCookie = getRandStr();
 
         User user1 = db.getUserByEmail(ApplicationParameters.USERS, email);
         if (user1 != null) {
-            System.out.println("Пользователь с таким именем уже существует");
+            req.setAttribute("err", "Пользователь с такой почтой уже существует");
             doGet(req, resp);
+            return;
         }
+
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        String password = req.getParameter("password");
+        if (password.length() < 6) {
+            req.setAttribute("err", "Пароль должен быть не менее 6 символов");
+            doGet(req, resp);
+            return;
+        }
+        String userCookie = getRandStr();
 
         User user = new User();
         user.setEmail(email);

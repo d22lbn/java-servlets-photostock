@@ -22,6 +22,11 @@ public class AuthorizationServlet extends HttpServlet {
         req.setCharacterEncoding("UTF8");
         String path = "http://localhost:8080" + req.getContextPath();
 
+        if (req.getParameter("registr") != null) {
+            resp.sendRedirect(path + "/registration");
+            return;
+        }
+
         HttpSession session = req.getSession();
         DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
 
@@ -32,8 +37,9 @@ public class AuthorizationServlet extends HttpServlet {
 
         System.out.println("User: " + user);
         if (user == null) {
-            System.out.println("Ошибка в логине или пароле");
+            req.setAttribute("err", "Ошибка в логине или пароле");
             doGet(req, resp);
+            return;
         }
 
         if (user.getPassword().equals(password)) {
@@ -49,7 +55,12 @@ public class AuthorizationServlet extends HttpServlet {
             return;
         }
 
-        System.out.println("Ошибка в логине или пароле");
+        if (true) {
+            req.setAttribute("err", "Ошибка в логине или пароле");
+            doGet(req, resp);
+            return;
+        }
+
         doGet(req, resp);
     }
 

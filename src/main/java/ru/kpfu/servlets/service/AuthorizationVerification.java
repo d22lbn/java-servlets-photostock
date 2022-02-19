@@ -1,6 +1,7 @@
 package ru.kpfu.servlets.service;
 
 import javax.servlet.http.Cookie;
+import java.util.ArrayList;
 
 public class AuthorizationVerification {
     public static User rememberUser(User user, Cookie[] cookies, DBHelperInterface db) {

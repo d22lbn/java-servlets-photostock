@@ -23,16 +23,12 @@ public class MainServlet extends HttpServlet{
       req.setAttribute("userName", s);
     }
     session.setAttribute(ApplicationParameters.SESSION_USER, user);
-
     ArrayList<String> paths = (ArrayList<String>) db.getColumnEntries(ApplicationParameters.PHOTOS, "path");
     req.setAttribute("paths", paths);
-
     ArrayList<String> names = (ArrayList<String>) db.getColumnEntries(ApplicationParameters.PHOTOS, "name");
     req.setAttribute("names", names);
-
     ArrayList<String> descriptions = (ArrayList<String>) db.getColumnEntries(ApplicationParameters.PHOTOS, "description");
     req.setAttribute("descriptions", descriptions);
-
     ArrayList<String> prices = (ArrayList<String>) db.getColumnEntries(ApplicationParameters.PHOTOS, "price");
     req.setAttribute("prices", prices);
 

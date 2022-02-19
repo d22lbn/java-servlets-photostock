@@ -34,7 +34,17 @@ public class SearchServlet extends HttpServlet {
         String search = req.getParameter("search");
         DBHelperInterface db = (DBHelper) req.getServletContext().getAttribute(ApplicationParameters.DB);
 
-        ArrayList<String> ids = db.getPhotoIdByName(ApplicationParameters.PHOTOS, search);
+        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> str = getStr(search);
+        for (String s : str) {
+            ArrayList<String> si = db.getPhotoIdByName(ApplicationParameters.PHOTOS, s);
+            if (si != null) {
+                for (String i : si) {
+                    ids.add(i);
+                }
+            }
+        }
+
         ArrayList<String> paths = new ArrayList<>();
         if (ids != null && ids.size() > 0) {
             for (String id : ids) {
@@ -45,5 +55,24 @@ public class SearchServlet extends HttpServlet {
         }
 
         doGet(req, resp);
+    }
+
+    private ArrayList<String> getStr(String s) {
+        ArrayList<String> arr = new ArrayList<>();
+        StringBuilder s1 = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i)  == ' ') {
+                if (s1.length() > 0) {
+                    arr.add(s1.toString());
+                }
+                s1 = new StringBuilder();
+            } else {
+                s1.append(s.charAt(i));
+            }
+        }
+        if (s1.length() > 0) {
+            arr.add(s1.toString());
+        }
+        return arr;
     }
 }

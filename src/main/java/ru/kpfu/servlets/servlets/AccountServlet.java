@@ -89,12 +89,15 @@ public class AccountServlet extends HttpServlet {
             Part filePart = req.getPart("filename");
             InputStream fileContent = filePart.getInputStream();
 
-            String path = "C:\\Users\\d22lb\\semwor3\\servletExampleFirst\\src\\main\\webapp\\photo\\";
-            File uploads = new File(path);
-
+            String path1 = "C:\\Users\\d22lb\\semwor3\\servletExampleFirst\\target\\servletExampleFirst-1.0\\photo";
+            File uploads = new File(path1);
 
             String photoPath = "item" + db.getTableSize(ApplicationParameters.PHOTOS) + ".jpg";
             File file = new File(uploads, photoPath);
+
+            System.out.println(fileContent.toString());
+            System.out.println(file.toPath());
+
             Files.copy(fileContent, file.toPath());
 
 
@@ -112,11 +115,9 @@ public class AccountServlet extends HttpServlet {
             String photoId = db.getPhotoIdByPath(ApplicationParameters.PHOTOS, "photo/" + photoPath);
             photo = db.getPhotoById(ApplicationParameters.PHOTOS, Integer.parseInt(photoId));
 
-
             System.out.println("PHOTOID" + photoId);
             System.out.println("USER: " + user);
             System.out.println("PHOTO: " + photo);
-
 
             ArrayList<ArrayList<String>> entryUpl = new ArrayList<>();
             entryUpl.add(User.getCoup("userId", String.valueOf(user.getId())));

@@ -375,12 +375,17 @@ h1, h2, h3, h4, h5, h6 {
 .uploaded_text {
     width: 90vw;
     margin: 0 auto;
-
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
-.uploaded_text button {
+.uploaded_text form {
+    display: flex;
+    flex-direction: column;
+}
+
+.uploaded_text input {
     border-radius: 10px;
     border: 1px solid gray;
     font-size: 1em;
@@ -388,12 +393,8 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
     transition: background-color 0.1s ease;
     padding: 5px;
-    margin-left: 2vw;
 }
 
-.uploaded_text button:hover {
-    background-color: #CECECE;
-}
 
 .purchased {
     margin-top: 2vw;
